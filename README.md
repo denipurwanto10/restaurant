@@ -7,7 +7,7 @@ branch maps, and a **dummy (simulated) payment system** — no real payment
 gateway, no API keys required.
  
 > “Crafted with Passion, Served with Soul.”
- 
+  
 ---
 
 ## 1. Requirements
