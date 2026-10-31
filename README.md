@@ -1,5 +1,5 @@
 # Saveur Restaurant — Website & Ordering System
-
+ 
 Professional, premium, responsive restaurant website with a full online ordering
 system. **Vue 3 + Tailwind CSS** frontend served by **Laravel 13 API** with
 **Sanctum** authentication, **MySQL** database, **OpenStreetMap + Leaflet** 
