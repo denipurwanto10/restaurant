@@ -13,11 +13,11 @@ const checkOnly = process.argv.includes('--check');
 // Light utility -> dark utility. Only color/surface/border/ring/divide/placeholder.
 const MAP = {
     // surfaces
-    'bg-white': 'dark:bg-[#211a12]',
-    'bg-cream-50': 'dark:bg-[#14100b]',
-    'bg-cream-100': 'dark:bg-[#2c2318]',
-    'bg-cream-200': 'dark:bg-[#3e3222]',
-    'bg-[#f5f1e8]': 'dark:bg-[#14100b]',
+    'bg-white': 'dark:bg-[#1b1510]',
+    'bg-cream-50': 'dark:bg-[#110d09]',
+    'bg-cream-100': 'dark:bg-[#261d15]',
+    'bg-cream-200': 'dark:bg-[#352a1e]',
+    'bg-[#f6f1e7]': 'dark:bg-[#110d09]',
     // text
     'text-espresso-900': 'dark:text-cream-100',
     'text-espresso-800': 'dark:text-cream-100',

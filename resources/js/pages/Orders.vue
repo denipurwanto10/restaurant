@@ -1,9 +1,9 @@
 <template>
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <div v-reveal.stagger class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <h1 class="font-serif text-4xl sm:text-5xl font-bold">My Orders</h1>
         <p class="text-espresso-700/65 mt-1.5 dark:text-cream-200">Track and revisit your dining history.</p>
 
-        <div v-if="!auth.user" class="text-center py-16 bg-white rounded-3xl border border-cream-200 mt-8 dark:bg-[#211a12] dark:border-white/10">
+        <div v-if="!auth.user" class="text-center py-16 bg-white rounded-[1.75rem] border border-cream-200 mt-8 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
             <CircleUserRound class="w-12 h-12 mx-auto text-espresso-500/30 dark:text-cream-200/70" />
             <p class="font-serif text-2xl font-bold mt-4">Login to see your orders.</p>
             <RouterLink to="/login" class="inline-block mt-3 font-semibold bg-espresso-900 dark:bg-gold-500 text-cream-50 dark:text-espresso-900 px-6 py-2.5 rounded-full">Login</RouterLink>
@@ -11,9 +11,9 @@
 
         <template v-else>
             <div v-if="loading" class="space-y-3 mt-8">
-                <div v-for="i in 3" :key="i" class="skeleton h-28 rounded-2xl"></div>
+                <div v-for="i in 3" :key="i" class="skeleton h-28 rounded-[1.25rem]"></div>
             </div>
-            <div v-else-if="!orders.length" class="text-center py-16 bg-white rounded-3xl border border-cream-200 mt-8 dark:bg-[#211a12] dark:border-white/10">
+            <div v-else-if="!orders.length" class="text-center py-16 bg-white rounded-[1.75rem] border border-cream-200 mt-8 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                 <ReceiptText class="w-12 h-12 mx-auto text-espresso-500/30 dark:text-cream-200/70" />
                 <p class="font-serif text-2xl font-bold mt-4">No orders yet.</p>
                 <p class="text-sm text-espresso-700/60 mt-1 dark:text-cream-200">Your delicious history starts with the first bite.</p>
@@ -24,7 +24,7 @@
                     v-for="o in orders"
                     :key="o.id"
                     :to="`/orders/${o.order_number}`"
-                    class="bg-white rounded-2xl border border-cream-200 p-5 flex flex-col sm:flex-row sm:items-center gap-3 hover:shadow-lg hover:-translate-y-0.5 transition-all dark:bg-[#211a12] dark:border-white/10"
+                    class="bg-white rounded-[1.25rem] border border-cream-200 p-5 flex flex-col sm:flex-row sm:items-center gap-3 hover:shadow-lg hover:-translate-y-0.5 transition-all dark:bg-[#1b1510] dark:border-white/10"
                 >
                     <div class="flex-1">
                         <p class="font-mono font-bold text-[15px]">{{ o.order_number }}</p>

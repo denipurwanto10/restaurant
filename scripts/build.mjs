@@ -11,6 +11,7 @@ import postcss from 'postcss';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 
+const t0 = Date.now();
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
 const jsRoot = path.join(root, 'resources', 'js');
@@ -33,6 +34,17 @@ function toKebab(name) {
         .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
         .replace(/([a-zA-Z])(\d)/g, '$1-$2')
         .toLowerCase();
+}
+
+// Guard: the design system lives in tailwind.config.js. Fail early instead of shipping unstyled pages.
+{
+    const cfg = fs.readFileSync(path.join(root, 'tailwind.config.js'), 'utf8');
+    const need = ['espresso', 'gold', 'cream', 'shadow'.replace('shadow', 'boxShadow'), 'transitionTimingFunction'];
+    const absent = need.filter(function (k) { return !cfg.includes(k); });
+    if (absent.length) {
+        console.error('tailwind.config.js is missing design tokens: ' + absent.join(', ') + '. Merge theme.extend from the redesign.');
+        process.exit(1);
+    }
 }
 
 // Collect every icon imported from lucide-vue-next across the app
@@ -251,4 +263,6 @@ if (fs.existsSync(imgSrc)) {
     for (const img of fs.readdirSync(imgSrc)) fs.copyFileSync(path.join(imgSrc, img), path.join(leafDir, 'images', img));
 }
 
-console.log('BUILD OK: ' + compiled + ' modules, ' + iconNames.size + ' icons');
+const kb = function (n) { return (n / 1024).toFixed(1) + ' KB'; };
+console.log('CSS ' + kb(Buffer.byteLength(css.css)) + ' | JS ' + kb(walk(jsOut, ['.js']).reduce(function (a, f) { return a + fs.statSync(f).size; }, 0)));
+console.log('BUILD OK: ' + compiled + ' modules, ' + iconNames.size + ' icons in ' + ((Date.now() - t0) / 1000).toFixed(1) + 's');

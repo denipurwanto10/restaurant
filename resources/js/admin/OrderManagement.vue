@@ -1,27 +1,18 @@
 <template>
-    <div class="space-y-5">
+    <div v-reveal.stagger class="space-y-5">
         <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
             <div class="relative flex-1 max-w-md">
                 <Search class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-espresso-500/50 dark:text-cream-200/70" />
-                <input v-model="search" type="text" placeholder="Search orders…" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-cream-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:bg-[#211a12] dark:focus:ring-gold-400/40" />
+                <input v-model="search" type="text" placeholder="Search orders…" class="w-full pl-10 pr-4 py-2.5 rounded-[0.875rem] border border-cream-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:bg-[#1b1510] dark:focus:ring-gold-400/40 shadow-soft" />
             </div>
-            <select v-model="status" class="px-4 py-2.5 rounded-xl border border-cream-200 bg-white text-sm dark:border-white/10 dark:bg-[#211a12]">
-                <option value="">All statuses</option>
-                <option v-for="s in statuses" :key="s" :value="s">{{ s }}</option>
-            </select>
-            <select v-model="paymentStatus" class="px-4 py-2.5 rounded-xl border border-cream-200 bg-white text-sm dark:border-white/10 dark:bg-[#211a12]">
-                <option value="">All payments</option>
-                <option value="pending">pending</option>
-                <option value="paid">paid</option>
-                <option value="failed">failed</option>
-                <option value="expired">expired</option>
-            </select>
+            <BaseSelect v-model="status" :options="[{ value: '', label: 'All statuses' }, ...statuses]" class="sm:w-52" capitalize label="Order status" />
+            <BaseSelect v-model="paymentStatus" :options="[{ value: '', label: 'All payments' }, 'pending', 'paid', 'failed', 'expired']" class="sm:w-52" capitalize label="Payment" />
         </div>
 
-        <div class="bg-white rounded-2xl border border-cream-200 overflow-hidden dark:bg-[#211a12] dark:border-white/10">
+        <div class="bg-white rounded-[1.25rem] border border-cream-200 overflow-hidden dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm min-w-[820px]">
-                    <thead><tr class="text-left text-xs uppercase tracking-wide text-espresso-700/55 bg-cream-50 dark:bg-[#14100b] dark:text-cream-200">
+                    <thead><tr class="text-left text-xs uppercase tracking-wide text-espresso-700/55 bg-cream-50 dark:bg-[#110d09] dark:text-cream-200">
                         <th class="px-4 py-3">Order</th><th class="px-4 py-3">Customer</th><th class="px-4 py-3">Type</th><th class="px-4 py-3">Total</th><th class="px-4 py-3">Status</th><th class="px-4 py-3">Payment</th><th class="px-4 py-3">Date</th>
                     </tr></thead>
                     <tbody>
@@ -44,7 +35,7 @@
         <Transition name="drawer">
             <div v-if="selected" class="fixed inset-0 z-50">
                 <div class="absolute inset-0 bg-espresso-900/50" @click="selected = null"></div>
-                <aside class="drawer-panel absolute right-0 top-0 h-full w-full max-w-lg bg-[#f5f1e8] shadow-2xl overflow-y-auto p-5 sm:p-7 dark:bg-[#14100b]">
+                <aside class="drawer-panel absolute right-0 top-0 h-full w-full max-w-lg bg-[#f6f1e7] shadow-2xl overflow-y-auto p-5 sm:p-7 dark:bg-[#110d09]">
                     <div class="flex items-start justify-between">
                         <div>
                             <p class="font-mono font-bold text-lg">{{ selected.order_number }}</p>
@@ -52,7 +43,7 @@
                         </div>
                         <button @click="selected = null" class="p-2 rounded-full hover:bg-cream-100 dark:hover:bg-white/10"><X class="w-5 h-5" /></button>
                     </div>
-                    <div class="bg-white rounded-2xl border border-cream-200 p-4 mt-5 text-sm space-y-2 dark:bg-[#211a12] dark:border-white/10">
+                    <div class="bg-white rounded-[1.25rem] border border-cream-200 p-4 mt-5 text-sm space-y-2 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                         <div v-for="i in selected.items" :key="i.id" class="flex justify-between gap-2">
                             <span>{{ i.quantity }}× {{ i.menu_name }}</span>
                             <span class="font-semibold">{{ formatRupiah(i.subtotal) }}</span>
@@ -67,7 +58,7 @@
                                 :key="s"
                                 @click="updateStatus(s)"
                                 class="px-3.5 py-1.5 rounded-full text-xs font-bold border transition"
-                                :class="selected.status === s ? 'bg-espresso-900 text-cream-50 border-espresso-900 dark:bg-gold-500 dark:text-espresso-900' : 'bg-white border-cream-200 hover:border-espresso-900 dark:bg-[#211a12] dark:border-white/10 dark:hover:border-gold-400'"
+                                :class="selected.status === s ? 'bg-espresso-900 text-cream-50 border-espresso-900 dark:bg-gold-500 dark:text-espresso-900' : 'bg-white border-cream-200 hover:border-espresso-900 dark:bg-[#1b1510] dark:border-white/10 dark:hover:border-gold-400'"
                             >{{ s }}</button>
                         </div>
                     </div>
@@ -78,6 +69,7 @@
 </template>
 
 <script setup>
+import BaseSelect from '../components/BaseSelect.vue';
 import { onMounted, ref, watch } from 'vue';
 import { Search, X } from 'lucide-vue-next';
 import api from '../services/api';

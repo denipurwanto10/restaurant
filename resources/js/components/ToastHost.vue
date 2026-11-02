@@ -4,11 +4,11 @@
             <div
                 v-for="t in toast.toasts"
                 :key="t.id"
-                class="flex items-start gap-3 rounded-xl px-4 py-3 shadow-lg border text-sm animate-fade-in"
+                class="flex items-start gap-3 rounded-[0.875rem] px-4 py-3 shadow-lg border text-sm animate-fade-in"
                 :class="{
                     'bg-espresso-900 text-cream-50 border-espresso-900 dark:bg-gold-500 dark:text-espresso-900 dark:border-gold-500': t.type === 'success',
                     'bg-red-50 text-red-800 border-red-200 dark:bg-red-500/15 dark:text-red-300 dark:border-red-500/30': t.type === 'error',
-                    'bg-white text-espresso-800 border-cream-200 dark:bg-[#211a12] dark:text-cream-100 dark:border-white/10': t.type === 'info',
+                    'bg-white text-espresso-800 border-cream-200 dark:bg-[#1b1510] dark:text-cream-100 dark:border-white/10': t.type === 'info',
                 }"
             >
                 <component

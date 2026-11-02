@@ -1,10 +1,10 @@
 <template>
-    <div class="space-y-5 max-w-3xl">
+    <div v-reveal.stagger class="space-y-5 max-w-3xl">
         <button @click="openForm()" class="inline-flex items-center gap-1.5 bg-espresso-900 text-cream-50 text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-espresso-700 dark:bg-gold-500 dark:text-espresso-900 dark:hover:bg-gold-400 transition">
             <Plus class="w-4 h-4" /> Add Category
         </button>
 
-        <div class="bg-white rounded-2xl border border-cream-200 divide-y divide-cream-100 dark:bg-[#211a12] dark:border-white/10 dark:divide-white/10">
+        <div class="bg-white rounded-[1.25rem] border border-cream-200 divide-y divide-cream-100 dark:bg-[#1b1510] dark:border-white/10 dark:divide-white/10 shadow-soft">
             <div v-for="c in categories" :key="c.id" class="flex items-center gap-3 px-5 py-4">
                 <span class="font-bold text-espresso-700/40 text-sm w-6 dark:text-cream-200">{{ c.sort_order }}</span>
                 <div class="flex-1">
@@ -20,20 +20,20 @@
         <Transition name="modal">
             <div v-if="showForm" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-6">
                 <div class="absolute inset-0 bg-espresso-900/50" @click="showForm = false"></div>
-                <div class="modal-card relative bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 dark:bg-[#211a12]">
+                <div class="modal-card relative bg-white w-full max-w-md rounded-t-3xl sm:rounded-[1.75rem] p-6 sm:p-8 dark:bg-[#1b1510]">
                     <h3 class="font-serif text-2xl font-bold">{{ editing ? 'Edit Category' : 'Add Category' }}</h3>
                     <div class="space-y-3.5 mt-5">
                         <div>
                             <label class="text-sm font-medium">Name *</label>
-                            <input v-model="form.name" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" />
+                            <input v-model="form.name" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" />
                         </div>
                         <div>
                             <label class="text-sm font-medium">Description</label>
-                            <textarea v-model="form.description" rows="2" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10"></textarea>
+                            <textarea v-model="form.description" rows="2" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10"></textarea>
                         </div>
                         <div>
                             <label class="text-sm font-medium">Sort order</label>
-                            <input v-model.number="form.sort_order" type="number" min="0" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" />
+                            <input v-model.number="form.sort_order" type="number" min="0" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" />
                         </div>
                     </div>
                     <div class="flex gap-2.5 mt-6">

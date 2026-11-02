@@ -1,5 +1,5 @@
 <template>
-    <div class="space-y-6">
+    <div v-reveal.stagger class="space-y-6">
         <section>
             <div class="flex items-center justify-between mb-3">
                 <h3 class="font-serif text-xl font-bold">Branches</h3>
@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                <div v-for="b in branches" :key="b.id" class="bg-white rounded-2xl border border-cream-200 p-5 dark:bg-[#211a12] dark:border-white/10">
+                <div v-for="b in branches" :key="b.id" class="bg-white rounded-[1.25rem] border border-cream-200 p-5 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                     <h4 class="font-serif text-lg font-bold">{{ b.name }}</h4>
                     <p class="text-sm text-espresso-700/60 mt-1 dark:text-cream-200">{{ b.address }}, {{ b.city }}</p>
                     <p class="text-sm text-espresso-700/60 mt-1 dark:text-cream-200">{{ b.phone }} · {{ b.menus_count }} menus</p>
@@ -27,9 +27,9 @@
                     <Plus class="w-4 h-4" /> Add Promo
                 </button>
             </div>
-            <div class="bg-white rounded-2xl border border-cream-200 divide-y divide-cream-100 dark:bg-[#211a12] dark:border-white/10 dark:divide-white/10">
+            <div class="bg-white rounded-[1.25rem] border border-cream-200 divide-y divide-cream-100 dark:bg-[#1b1510] dark:border-white/10 dark:divide-white/10 shadow-soft">
                 <div v-for="p in promos" :key="p.id" class="flex items-center gap-3 px-5 py-4">
-                    <span class="font-mono font-bold bg-cream-100 px-3 py-1.5 rounded-lg text-sm dark:bg-[#2c2318]">{{ p.code }}</span>
+                    <span class="font-mono font-bold bg-cream-100 px-3 py-1.5 rounded-lg text-sm dark:bg-[#261d15]">{{ p.code }}</span>
                     <div class="flex-1"><p class="font-bold text-sm">{{ p.title }}</p><p class="text-xs text-espresso-700/55 dark:text-cream-200">{{ p.description }}</p></div>
                     <button @click="removePromo(p)" class="p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10 text-red-600 transition dark:text-red-400" aria-label="Delete promo"><Trash2 class="w-4 h-4" /></button>
                 </div>
@@ -38,19 +38,19 @@
         </section>
 
         <section class="grid lg:grid-cols-2 gap-4">
-            <div class="bg-white rounded-2xl border border-cream-200 p-5 dark:bg-[#211a12] dark:border-white/10">
+            <div class="bg-white rounded-[1.25rem] border border-cream-200 p-5 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                 <h3 class="font-serif text-xl font-bold">Customers ({{ customers.length }})</h3>
                 <ul class="mt-3 space-y-2.5 text-sm max-h-72 overflow-y-auto">
                     <li v-for="c in customers" :key="c.id" class="flex items-center gap-3">
-                        <span class="w-9 h-9 rounded-full bg-cream-100 flex items-center justify-center font-bold shrink-0 dark:bg-[#2c2318]">{{ c.name.charAt(0) }}</span>
+                        <span class="w-9 h-9 rounded-full bg-cream-100 flex items-center justify-center font-bold shrink-0 dark:bg-[#261d15]">{{ c.name.charAt(0) }}</span>
                         <div class="min-w-0"><p class="font-semibold truncate">{{ c.name }}</p><p class="text-xs text-espresso-700/55 dark:text-cream-200">{{ c.email }} · {{ c.orders_count }} orders</p></div>
                     </li>
                 </ul>
             </div>
-            <div class="bg-white rounded-2xl border border-cream-200 p-5 dark:bg-[#211a12] dark:border-white/10">
+            <div class="bg-white rounded-[1.25rem] border border-cream-200 p-5 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                 <h3 class="font-serif text-xl font-bold">Reviews</h3>
                 <ul class="mt-3 space-y-2.5 text-sm max-h-72 overflow-y-auto">
-                    <li v-for="r in reviews" :key="r.id" class="border border-cream-100 rounded-xl p-3 dark:border-white/10">
+                    <li v-for="r in reviews" :key="r.id" class="border border-cream-100 rounded-[0.875rem] p-3 dark:border-white/10">
                         <p class="font-semibold">{{ r.customer_name }} <span class="text-gold-500">★ {{ r.rating }}</span></p>
                         <p class="text-espresso-700/70 text-[13px] mt-0.5 line-clamp-2 dark:text-cream-200">{{ r.comment }}</p>
                         <button @click="toggleReview(r)" class="text-xs font-bold mt-1.5" :class="r.is_approved ? 'text-green-700 dark:text-green-400' : 'text-espresso-700/50 dark:text-cream-200/60'">
@@ -65,18 +65,18 @@
         <Transition name="modal">
             <div v-if="showBranch" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-6">
                 <div class="absolute inset-0 bg-espresso-900/50" @click="showBranch = false"></div>
-                <div class="modal-card relative bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 max-h-[92vh] overflow-y-auto dark:bg-[#211a12]">
+                <div class="modal-card relative bg-white w-full max-w-lg rounded-t-3xl sm:rounded-[1.75rem] p-6 sm:p-8 max-h-[92vh] overflow-y-auto dark:bg-[#1b1510]">
                     <h3 class="font-serif text-2xl font-bold">{{ editingBranch ? 'Edit Branch' : 'Add Branch' }}</h3>
                     <div class="grid sm:grid-cols-2 gap-3.5 mt-5">
-                        <div class="sm:col-span-2"><label class="text-sm font-medium">Name *</label><input v-model="branchForm.name" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
-                        <div class="sm:col-span-2"><label class="text-sm font-medium">Address *</label><input v-model="branchForm.address" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
-                        <div><label class="text-sm font-medium">City *</label><input v-model="branchForm.city" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
-                        <div><label class="text-sm font-medium">Phone *</label><input v-model="branchForm.phone" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
-                        <div><label class="text-sm font-medium">Latitude *</label><input v-model.number="branchForm.latitude" type="number" step="any" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
-                        <div><label class="text-sm font-medium">Longitude *</label><input v-model.number="branchForm.longitude" type="number" step="any" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
-                        <div class="sm:col-span-2"><label class="text-sm font-medium">Opening hours *</label><input v-model="branchForm.opening_hours" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
-                        <div class="sm:col-span-2"><label class="text-sm font-medium">Description</label><textarea v-model="branchForm.description" rows="2" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10"></textarea></div>
-                        <div class="sm:col-span-2"><label class="text-sm font-medium">Facilities (comma separated)</label><input v-model="branchForm.facilities" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
+                        <div class="sm:col-span-2"><label class="text-sm font-medium">Name *</label><input v-model="branchForm.name" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
+                        <div class="sm:col-span-2"><label class="text-sm font-medium">Address *</label><input v-model="branchForm.address" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
+                        <div><label class="text-sm font-medium">City *</label><input v-model="branchForm.city" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
+                        <div><label class="text-sm font-medium">Phone *</label><input v-model="branchForm.phone" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
+                        <div><label class="text-sm font-medium">Latitude *</label><input v-model.number="branchForm.latitude" type="number" step="any" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
+                        <div><label class="text-sm font-medium">Longitude *</label><input v-model.number="branchForm.longitude" type="number" step="any" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
+                        <div class="sm:col-span-2"><label class="text-sm font-medium">Opening hours *</label><input v-model="branchForm.opening_hours" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
+                        <div class="sm:col-span-2"><label class="text-sm font-medium">Description</label><textarea v-model="branchForm.description" rows="2" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10"></textarea></div>
+                        <div class="sm:col-span-2"><label class="text-sm font-medium">Facilities (comma separated)</label><input v-model="branchForm.facilities" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
                     </div>
                     <div class="flex gap-2.5 mt-6">
                         <button @click="showBranch = false" class="flex-1 py-3 rounded-full border border-cream-200 font-semibold text-sm dark:border-white/10">Cancel</button>
@@ -90,16 +90,16 @@
         <Transition name="modal">
             <div v-if="showPromo" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-6">
                 <div class="absolute inset-0 bg-espresso-900/50" @click="showPromo = false"></div>
-                <div class="modal-card relative bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 dark:bg-[#211a12]">
+                <div class="modal-card relative bg-white w-full max-w-md rounded-t-3xl sm:rounded-[1.75rem] p-6 sm:p-8 dark:bg-[#1b1510]">
                     <h3 class="font-serif text-2xl font-bold">Add Promo</h3>
                     <div class="space-y-3.5 mt-5">
-                        <div><label class="text-sm font-medium">Code *</label><input v-model="promoForm.code" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm uppercase dark:border-white/10" /></div>
-                        <div><label class="text-sm font-medium">Title *</label><input v-model="promoForm.title" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
+                        <div><label class="text-sm font-medium">Code *</label><input v-model="promoForm.code" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm uppercase dark:border-white/10" /></div>
+                        <div><label class="text-sm font-medium">Title *</label><input v-model="promoForm.title" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
                         <div class="grid grid-cols-2 gap-3">
-                            <div><label class="text-sm font-medium">Type</label><select v-model="promoForm.discount_type" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm bg-white dark:border-white/10 dark:bg-[#211a12]"><option value="percent">Percent %</option><option value="fixed">Fixed Rp</option></select></div>
-                            <div><label class="text-sm font-medium">Value *</label><input v-model.number="promoForm.discount_value" type="number" min="1" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
+                            <div><label class="text-sm font-medium">Type</label><BaseSelect v-model="promoForm.discount_type" :options="[{ value: 'percent', label: 'Percent %' }, { value: 'fixed', label: 'Fixed Rp' }]" class="mt-1 w-full" label="Discount type" /></div>
+                            <div><label class="text-sm font-medium">Value *</label><input v-model.number="promoForm.discount_value" type="number" min="1" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
                         </div>
-                        <div><label class="text-sm font-medium">Min. order (Rp)</label><input v-model.number="promoForm.min_order" type="number" min="0" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" /></div>
+                        <div><label class="text-sm font-medium">Min. order (Rp)</label><input v-model.number="promoForm.min_order" type="number" min="0" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" /></div>
                     </div>
                     <div class="flex gap-2.5 mt-6">
                         <button @click="showPromo = false" class="flex-1 py-3 rounded-full border border-cream-200 font-semibold text-sm dark:border-white/10">Cancel</button>
@@ -112,6 +112,7 @@
 </template>
 
 <script setup>
+import BaseSelect from '../components/BaseSelect.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { Plus, Trash2 } from 'lucide-vue-next';
 import api, { errorMessage } from '../services/api';

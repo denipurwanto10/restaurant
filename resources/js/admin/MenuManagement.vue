@@ -1,19 +1,19 @@
 <template>
-    <div class="space-y-5">
+    <div v-reveal.stagger class="space-y-5">
         <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
             <div class="relative flex-1 max-w-md">
                 <Search class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-espresso-500/50 dark:text-cream-200/70" />
-                <input v-model="search" type="text" placeholder="Search menus…" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-cream-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:bg-[#211a12] dark:focus:ring-gold-400/40" />
+                <input v-model="search" type="text" placeholder="Search menus…" class="w-full pl-10 pr-4 py-2.5 rounded-[0.875rem] border border-cream-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:bg-[#1b1510] dark:focus:ring-gold-400/40 shadow-soft" />
             </div>
             <button @click="openForm()" class="inline-flex items-center gap-1.5 bg-espresso-900 text-cream-50 text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-espresso-700 dark:bg-gold-500 dark:text-espresso-900 dark:hover:bg-gold-400 transition">
                 <Plus class="w-4 h-4" /> Add Menu
             </button>
         </div>
 
-        <div class="bg-white rounded-2xl border border-cream-200 overflow-hidden dark:bg-[#211a12] dark:border-white/10">
+        <div class="bg-white rounded-[1.25rem] border border-cream-200 overflow-hidden dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm min-w-[720px]">
-                    <thead><tr class="text-left text-xs uppercase tracking-wide text-espresso-700/55 bg-cream-50 dark:bg-[#14100b] dark:text-cream-200">
+                    <thead><tr class="text-left text-xs uppercase tracking-wide text-espresso-700/55 bg-cream-50 dark:bg-[#110d09] dark:text-cream-200">
                         <th class="px-4 py-3">Menu</th><th class="px-4 py-3">Category</th><th class="px-4 py-3">Price</th><th class="px-4 py-3">Stock</th><th class="px-4 py-3">Flags</th><th class="px-4 py-3 text-right">Actions</th>
                     </tr></thead>
                     <tbody>
@@ -40,47 +40,45 @@
         <Transition name="modal">
             <div v-if="showForm" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6">
                 <div class="absolute inset-0 bg-espresso-900/50" @click="showForm = false"></div>
-                <div class="modal-card relative bg-white w-full max-w-2xl rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 max-h-[92vh] overflow-y-auto dark:bg-[#211a12]">
+                <div class="modal-card relative bg-white w-full max-w-2xl rounded-t-3xl sm:rounded-[1.75rem] p-6 sm:p-8 max-h-[92vh] overflow-y-auto dark:bg-[#1b1510]">
                     <h3 class="font-serif text-2xl font-bold">{{ editing ? 'Edit Menu' : 'Add Menu' }}</h3>
                     <div class="grid sm:grid-cols-2 gap-3.5 mt-5">
                         <div class="sm:col-span-2">
                             <label class="text-sm font-medium">Name *</label>
-                            <input v-model="form.name" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" />
+                            <input v-model="form.name" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" />
                         </div>
                         <div>
                             <label class="text-sm font-medium">Category *</label>
-                            <select v-model="form.category_id" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm bg-white dark:border-white/10 dark:bg-[#211a12]">
-                                <option v-for="c in categories" :key="c.id" :value="c.id">{{ c.name }}</option>
-                            </select>
+                            <BaseSelect v-model="form.category_id" :options="categories.map((c) => ({ value: c.id, label: c.name }))" class="mt-1 w-full" placeholder="Select category" label="Category" />
                         </div>
                         <div>
                             <label class="text-sm font-medium">Price (Rp) *</label>
-                            <input v-model.number="form.price" type="number" min="0" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" />
+                            <input v-model.number="form.price" type="number" min="0" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" />
                         </div>
                         <div class="sm:col-span-2">
                             <label class="text-sm font-medium">Description</label>
-                            <textarea v-model="form.description" rows="2" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10"></textarea>
+                            <textarea v-model="form.description" rows="2" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10"></textarea>
                         </div>
                         <div class="sm:col-span-2">
                             <label class="text-sm font-medium">Ingredients</label>
-                            <input v-model="form.ingredients" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" />
+                            <input v-model="form.ingredients" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" />
                         </div>
                         <div>
                             <label class="text-sm font-medium">Stock</label>
-                            <input v-model.number="form.stock" type="number" min="0" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" />
+                            <input v-model.number="form.stock" type="number" min="0" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" />
                         </div>
                         <div>
                             <label class="text-sm font-medium">Photo</label>
-                            <input type="file" accept="image/*" @change="onFile" class="mt-1 w-full text-sm file:mr-3 file:px-4 file:py-2 file:rounded-full file:border-0 file:bg-cream-100 dark:file:bg-[#2c2318] file:font-semibold hover:file:bg-cream-200 dark:hover:file:bg-white/10" />
+                            <input type="file" accept="image/*" @change="onFile" class="mt-1 w-full text-sm file:mr-3 file:px-4 file:py-2 file:rounded-full file:border-0 file:bg-cream-100 dark:file:bg-[#261d15] file:font-semibold hover:file:bg-cream-200 dark:hover:file:bg-white/10" />
                         </div>
                         <div class="sm:col-span-2 flex flex-wrap gap-2">
-                            <label v-for="f in flags" :key="f" class="inline-flex items-center gap-2 text-sm bg-cream-50 border border-cream-200 rounded-full px-3.5 py-1.5 cursor-pointer dark:bg-[#14100b] dark:border-white/10">
-                                <input type="checkbox" v-model="form[f]" class="accent-[#a67c28]" /> {{ flagLabel(f) }}
+                            <label v-for="f in flags" :key="f" class="inline-flex items-center gap-2 text-sm bg-cream-50 border border-cream-200 rounded-full px-3.5 py-1.5 cursor-pointer dark:bg-[#110d09] dark:border-white/10">
+                                <input type="checkbox" v-model="form[f]" class="accent-[#856a38]" /> {{ flagLabel(f) }}
                             </label>
                         </div>
                     </div>
                     <div class="flex gap-2.5 mt-6">
-                        <button @click="showForm = false" class="flex-1 py-3 rounded-full border border-cream-200 font-semibold text-sm hover:bg-cream-50 transition dark:border-white/10 dark:hover:bg-white/5">Cancel</button>
+                        <button @click="showForm = false" class="flex-1 py-3 rounded-full border border-cream-200 font-semibold text-sm hover:bg-cream-50 transition dark:border-white/10 dark:hover:bg-white/5 shadow-soft">Cancel</button>
                         <button @click="save" :disabled="saving" class="flex-1 py-3 rounded-full bg-espresso-900 text-cream-50 font-semibold text-sm hover:bg-espresso-700 dark:bg-gold-500 dark:text-espresso-900 dark:hover:bg-gold-400 transition disabled:opacity-50">
                             {{ saving ? 'Saving…' : editing ? 'Save Changes' : 'Create Menu' }}
                         </button>
@@ -92,6 +90,7 @@
 </template>
 
 <script setup>
+import BaseSelect from '../components/BaseSelect.vue';
 import { onMounted, reactive, ref, watch } from 'vue';
 import { Pencil, Plus, Search, Trash2 } from 'lucide-vue-next';
 import api, { errorMessage } from '../services/api';

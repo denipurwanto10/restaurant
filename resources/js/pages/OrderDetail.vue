@@ -1,12 +1,12 @@
 <template>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <div v-reveal.stagger class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <RouterLink to="/orders" class="inline-flex items-center gap-1.5 text-sm font-medium text-espresso-700/70 dark:text-cream-200 hover:text-espresso-900 dark:hover:text-gold-400 transition mb-6">
             <ArrowLeft class="w-4 h-4" /> All orders
         </RouterLink>
 
         <div v-if="loading" class="space-y-3">
             <div class="skeleton h-10 rounded w-1/2"></div>
-            <div class="skeleton h-80 rounded-3xl"></div>
+            <div class="skeleton h-80 rounded-[1.75rem]"></div>
         </div>
 
         <template v-else-if="order">
@@ -21,10 +21,10 @@
             <!-- Timeline -->
             <ol class="mt-8 relative">
                 <li v-for="(s, i) in steps" :key="s.key" class="flex gap-4 pb-7 last:pb-0 relative">
-                    <div v-if="i < steps.length - 1" class="absolute left-[19px] top-10 bottom-0 w-0.5" :class="s.done ? 'bg-green-600' : 'bg-cream-200 dark:bg-[#3e3222]'"></div>
+                    <div v-if="i < steps.length - 1" class="absolute left-[19px] top-10 bottom-0 w-0.5" :class="s.done ? 'bg-green-600' : 'bg-cream-200 dark:bg-[#352a1e]'"></div>
                     <span
                         class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-2 transition"
-                        :class="s.done ? 'bg-green-600 border-green-600 text-white' : s.current ? 'border-gold-500 bg-gold-500/10 text-gold-600' : 'border-cream-200 bg-white text-espresso-500/40 dark:border-white/10 dark:bg-[#211a12]'"
+                        :class="s.done ? 'bg-green-600 border-green-600 text-white' : s.current ? 'border-gold-500 bg-gold-500/10 text-gold-600' : 'border-cream-200 bg-white text-espresso-500/40 dark:border-white/10 dark:bg-[#1b1510]'"
                     >
                         <CircleCheck v-if="s.done" class="w-5 h-5" />
                         <component v-else :is="s.icon" class="w-5 h-5" />
@@ -37,7 +37,7 @@
             </ol>
 
             <!-- Items -->
-            <div class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 mt-8 dark:bg-[#211a12] dark:border-white/10">
+            <div class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 mt-8 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                 <h2 class="font-serif text-xl font-bold">Items</h2>
                 <div class="mt-3 space-y-2.5 text-sm">
                     <div v-for="item in order.items" :key="item.id" class="flex justify-between gap-3">

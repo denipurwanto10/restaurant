@@ -1,7 +1,7 @@
 <template>
-    <div class="min-h-screen bg-[#f5f1e8] text-espresso-900 dark:bg-[#14100b] dark:text-cream-100">
+    <div class="min-h-screen bg-[#f6f1e7] text-espresso-900 dark:bg-[#110d09] dark:text-cream-100">
         <aside
-            class="fixed inset-y-0 left-0 w-64 bg-espresso-900 text-cream-100 flex flex-col z-40 transition-transform duration-300"
+            class="fixed inset-y-0 left-0 w-64 bg-espresso-900 text-cream-100 flex flex-col z-40 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)]"
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
         >
             <div class="flex items-center gap-2.5 px-5 h-16 border-b border-white/10">
@@ -16,7 +16,7 @@
                     v-for="link in links"
                     :key="link.to"
                     :to="link.to"
-                    class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition"
+                    class="flex items-center gap-3 px-3.5 py-2.5 rounded-[0.875rem] transition"
                     :class="$route.path === link.to ? 'bg-gold-500 text-espresso-900 font-semibold' : 'hover:bg-white/10'"
                     @click="sidebarOpen = false"
                 >
@@ -25,16 +25,16 @@
                 </RouterLink>
             </nav>
             <div class="p-3 border-t border-white/10">
-                <button @click="doLogout" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white/10 transition text-sm text-left">
+                <button @click="doLogout" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-[0.875rem] hover:bg-white/10 transition text-sm text-left">
                     <LogOut class="w-[18px] h-[18px]" /> Logout
                 </button>
             </div>
         </aside>
 
-        <div v-if="sidebarOpen" class="fixed inset-0 bg-black/40 z-30 lg:hidden" @click="sidebarOpen = false"></div>
+        <Transition name="fade"><div v-if="sidebarOpen" class="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-30 lg:hidden" @click="sidebarOpen = false"></div></Transition>
 
         <div class="lg:pl-64">
-            <header class="sticky top-0 z-20 bg-[#f5f1e8]/90 dark:bg-[#14100b]/90 backdrop-blur border-b border-cream-200 h-16 flex items-center gap-3 px-4 sm:px-8 dark:border-white/10">
+            <header class="sticky top-0 z-20 bg-[#f6f1e7]/90 dark:bg-[#110d09]/90 backdrop-blur border-b border-cream-200 h-16 flex items-center gap-3 px-4 sm:px-8 dark:border-white/10">
                 <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 rounded-lg hover:bg-cream-100 dark:hover:bg-white/10" aria-label="Toggle sidebar">
                     <Menu class="w-5 h-5" />
                 </button>
@@ -48,7 +48,11 @@
                 </div>
             </header>
             <main class="p-4 sm:p-8">
-                <RouterView />
+                <RouterView v-slot="{ Component, route: r }">
+                    <Transition name="page" mode="out-in">
+                        <component :is="Component" :key="r.path" />
+                    </Transition>
+                </RouterView>
             </main>
         </div>
         <ToastHost />

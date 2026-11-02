@@ -1,9 +1,9 @@
 <template>
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <div v-reveal.stagger class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <h1 class="font-serif text-4xl sm:text-5xl font-bold">Checkout</h1>
         <p class="text-espresso-700/65 mt-1.5 dark:text-cream-200">Almost there — tell us where to send the goodness.</p>
 
-        <div v-if="!cart.items.length" class="text-center py-16 bg-white rounded-3xl border border-cream-200 mt-8 dark:bg-[#211a12] dark:border-white/10">
+        <div v-if="!cart.items.length" class="text-center py-16 bg-white rounded-[1.75rem] border border-cream-200 mt-8 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
             <ShoppingBasket class="w-12 h-12 mx-auto text-espresso-500/30 dark:text-cream-200/70" />
             <p class="font-serif text-2xl font-bold mt-4">Your cart is empty.</p>
             <RouterLink to="/menu" class="inline-block mt-3 font-semibold bg-espresso-900 dark:bg-gold-500 text-cream-50 dark:text-espresso-900 px-6 py-2.5 rounded-full">Explore our menu</RouterLink>
@@ -12,36 +12,36 @@
         <div v-else class="grid lg:grid-cols-[1fr_380px] gap-6 mt-8 items-start">
             <div class="space-y-5">
                 <!-- Customer info -->
-                <section class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 dark:bg-[#211a12] dark:border-white/10">
+                <section class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                     <h2 class="font-serif text-xl font-bold flex items-center gap-2"><CircleUserRound class="w-5 h-5 text-gold-600 dark:text-gold-400" /> Customer Information</h2>
                     <div class="grid sm:grid-cols-2 gap-3.5 mt-4">
                         <div>
                             <label class="text-sm font-medium">Full name *</label>
-                            <input v-model="form.customer_name" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:focus:ring-gold-400/40" :class="inputClass('customer_name')" placeholder="Jane Doe" />
+                            <input v-model="form.customer_name" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:focus:ring-gold-400/40" :class="inputClass('customer_name')" placeholder="Jane Doe" />
                             <FieldError :errors="errors" field="customer_name" />
                         </div>
                         <div>
                             <label class="text-sm font-medium">Phone *</label>
-                            <input v-model="form.customer_phone" type="tel" class="mt-1 w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:focus:ring-gold-400/40" :class="inputClass('customer_phone')" placeholder="0812…" />
+                            <input v-model="form.customer_phone" type="tel" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:focus:ring-gold-400/40" :class="inputClass('customer_phone')" placeholder="0812…" />
                             <FieldError :errors="errors" field="customer_phone" />
                         </div>
                         <div class="sm:col-span-2">
                             <label class="text-sm font-medium">Email *</label>
-                            <input v-model="form.customer_email" type="email" class="mt-1 w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:focus:ring-gold-400/40" :class="inputClass('customer_email')" placeholder="jane@email.com" />
+                            <input v-model="form.customer_email" type="email" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:focus:ring-gold-400/40" :class="inputClass('customer_email')" placeholder="jane@email.com" />
                             <FieldError :errors="errors" field="customer_email" />
                         </div>
                     </div>
                 </section>
 
                 <!-- Order type -->
-                <section class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 dark:bg-[#211a12] dark:border-white/10">
+                <section class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                     <h2 class="font-serif text-xl font-bold flex items-center gap-2"><ConciergeBell class="w-5 h-5 text-gold-600 dark:text-gold-400" /> Order Type</h2>
                     <div class="grid grid-cols-3 gap-2 sm:gap-2.5 mt-4">
                         <button
                             v-for="t in orderTypes"
                             :key="t.value"
                             @click="form.order_type = t.value"
-                            class="rounded-xl border-2 px-2 py-3.5 text-center transition"
+                            class="rounded-[0.875rem] border-2 px-2 py-3.5 text-center transition"
                             :class="form.order_type === t.value ? 'border-espresso-900 dark:border-gold-500 bg-espresso-900 dark:bg-gold-500 text-cream-50 dark:text-espresso-900' : 'border-cream-200 hover:border-espresso-900/40 dark:border-white/10 dark:hover:border-gold-400'"
                         >
                             <component :is="t.icon" class="w-5 h-5 mx-auto" />
@@ -52,48 +52,43 @@
                     <div v-if="form.order_type !== 'delivery'" class="grid sm:grid-cols-2 gap-3.5 mt-4">
                         <div>
                             <label class="text-sm font-medium">Branch *</label>
-                            <select v-model="form.branch_id" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:bg-[#211a12] dark:focus:ring-gold-400/40">
-                                <option :value="null" disabled>Select branch</option>
-                                <option v-for="b in branches" :key="b.id" :value="b.id">{{ b.name }}</option>
-                            </select>
+                            <BaseSelect v-model="form.branch_id" :options="branches.map((b) => ({ value: b.id, label: b.name }))" class="mt-1 w-full" placeholder="Select branch" label="Branch" />
                             <FieldError :errors="errors" field="branch_id" />
                         </div>
                         <div v-if="form.order_type === 'dine_in'">
                             <label class="text-sm font-medium">Table number</label>
-                            <input v-model="form.table_number" type="text" placeholder="e.g. A-12" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:focus:ring-gold-400/40" />
+                            <input v-model="form.table_number" type="text" placeholder="e.g. A-12" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:focus:ring-gold-400/40" />
                         </div>
                     </div>
 
                     <div v-else class="grid sm:grid-cols-2 gap-3.5 mt-4">
                         <div class="sm:col-span-2">
                             <label class="text-sm font-medium">Delivery address *</label>
-                            <textarea v-model="form.delivery_address" rows="2" class="mt-1 w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:focus:ring-gold-400/40" :class="inputClass('delivery_address')" placeholder="Street, building, landmark…"></textarea>
+                            <textarea v-model="form.delivery_address" rows="2" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:focus:ring-gold-400/40" :class="inputClass('delivery_address')" placeholder="Street, building, landmark…"></textarea>
                             <FieldError :errors="errors" field="delivery_address" />
                         </div>
                         <div>
                             <label class="text-sm font-medium">City *</label>
-                            <input v-model="form.delivery_city" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:focus:ring-gold-400/40" :class="inputClass('delivery_city')" placeholder="Jakarta Selatan" />
+                            <input v-model="form.delivery_city" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:focus:ring-gold-400/40" :class="inputClass('delivery_city')" placeholder="Jakarta Selatan" />
                             <FieldError :errors="errors" field="delivery_city" />
                         </div>
                         <div>
                             <label class="text-sm font-medium">Postal code</label>
-                            <input v-model="form.delivery_postal_code" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:focus:ring-gold-400/40" placeholder="12190" />
+                            <input v-model="form.delivery_postal_code" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:focus:ring-gold-400/40" placeholder="12190" />
                         </div>
                         <div>
                             <label class="text-sm font-medium">Branch (preparation)</label>
-                            <select v-model="form.branch_id" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm bg-white dark:border-white/10 dark:bg-[#211a12]">
-                                <option v-for="b in branches" :key="b.id" :value="b.id">{{ b.name }}</option>
-                            </select>
+                            <BaseSelect v-model="form.branch_id" :options="branches.map((b) => ({ value: b.id, label: b.name }))" class="mt-1 w-full" placeholder="Select branch" label="Branch" />
                         </div>
                         <div>
                             <label class="text-sm font-medium">Delivery note</label>
-                            <input v-model="form.delivery_note" type="text" class="mt-1 w-full px-4 py-2.5 rounded-xl border border-cream-200 text-sm dark:border-white/10" placeholder="Ring twice…" />
+                            <input v-model="form.delivery_note" type="text" class="mt-1 w-full px-4 py-2.5 rounded-[0.875rem] border border-cream-200 text-sm dark:border-white/10" placeholder="Ring twice…" />
                         </div>
                     </div>
                 </section>
 
                 <!-- Payment method -->
-                <section class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 dark:bg-[#211a12] dark:border-white/10">
+                <section class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                     <h2 class="font-serif text-xl font-bold flex items-center gap-2"><Wallet class="w-5 h-5 text-gold-600 dark:text-gold-400" /> Payment Method</h2>
                     <p class="text-xs mt-1.5 inline-flex items-center gap-1.5 bg-gold-500/10 text-gold-600 font-semibold px-3 py-1 rounded-full dark:text-gold-400"><FlaskConical class="w-3.5 h-3.5" /> Demo Payment — No real money will be charged.</p>
                     <div class="grid sm:grid-cols-2 gap-2.5 mt-4">
@@ -101,8 +96,8 @@
                             v-for="m in paymentMethods"
                             :key="m.code"
                             @click="form.payment_method = m.code"
-                            class="rounded-xl border-2 p-4 text-left transition"
-                            :class="form.payment_method === m.code ? 'border-espresso-900 dark:border-gold-500 bg-cream-50 dark:bg-[#14100b]' : 'border-cream-200 hover:border-espresso-900/40 dark:border-white/10 dark:hover:border-gold-400'"
+                            class="rounded-[0.875rem] border-2 p-4 text-left transition"
+                            :class="form.payment_method === m.code ? 'border-espresso-900 dark:border-gold-500 bg-cream-50 dark:bg-[#110d09]' : 'border-cream-200 hover:border-espresso-900/40 dark:border-white/10 dark:hover:border-gold-400'"
                         >
                             <p class="font-bold text-[15px] flex items-center gap-2">
                                 <QrCode v-if="m.type === 'qris'" class="w-5 h-5" />
@@ -117,11 +112,11 @@
             </div>
 
             <!-- Summary -->
-            <aside class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 lg:sticky lg:top-24 dark:bg-[#211a12] dark:border-white/10">
+            <aside class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 lg:sticky lg:top-24 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                 <h2 class="font-serif text-xl font-bold">Order Summary</h2>
                 <div class="mt-4 space-y-3 max-h-64 overflow-y-auto pr-1">
                     <div v-for="item in cart.items" :key="item.key" class="flex gap-3 text-sm">
-                        <span class="font-bold text-espresso-700 bg-cream-100 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 dark:text-cream-200 dark:bg-[#2c2318]">{{ item.quantity }}×</span>
+                        <span class="font-bold text-espresso-700 bg-cream-100 rounded-lg w-7 h-7 flex items-center justify-center shrink-0 dark:text-cream-200 dark:bg-[#261d15]">{{ item.quantity }}×</span>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold truncate">{{ item.name }}</p>
                             <p v-if="item.addons?.length" class="text-xs text-espresso-700/55 truncate dark:text-cream-200">+ {{ item.addons.map(a => a.name).join(', ') }}</p>
@@ -131,8 +126,8 @@
                 </div>
 
                 <div class="mt-4 flex gap-2">
-                    <input v-model="promoCode" type="text" placeholder="Promo code (e.g. WELCOME15)" class="flex-1 min-w-0 px-3.5 py-2 rounded-xl border border-cream-200 text-sm uppercase dark:border-white/10" />
-                    <button @click="applyPromo" :disabled="promoLoading" class="px-4 py-2 rounded-xl bg-cream-100 text-sm font-bold hover:bg-cream-200 transition disabled:opacity-50 dark:bg-[#2c2318] dark:hover:bg-white/10">
+                    <input v-model="promoCode" type="text" placeholder="Promo code (e.g. WELCOME15)" class="flex-1 min-w-0 px-3.5 py-2 rounded-[0.875rem] border border-cream-200 text-sm uppercase dark:border-white/10" />
+                    <button @click="applyPromo" :disabled="promoLoading" class="px-4 py-2 rounded-[0.875rem] bg-cream-100 text-sm font-bold hover:bg-cream-200 transition disabled:opacity-50 dark:bg-[#261d15] dark:hover:bg-white/10">
                         {{ promoLoading ? '…' : 'Apply' }}
                     </button>
                 </div>
@@ -160,6 +155,7 @@
 </template>
 
 <script setup>
+import BaseSelect from '../components/BaseSelect.vue';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import {

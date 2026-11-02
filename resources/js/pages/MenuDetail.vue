@@ -1,11 +1,11 @@
 <template>
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <div v-reveal.stagger class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <RouterLink to="/menu" class="inline-flex items-center gap-1.5 text-sm font-medium text-espresso-700/70 dark:text-cream-200 hover:text-espresso-900 dark:hover:text-gold-400 transition mb-6">
             <ArrowLeft class="w-4 h-4" /> Back to menu
         </RouterLink>
 
         <div v-if="loading" class="grid md:grid-cols-2 gap-8">
-            <div class="skeleton rounded-3xl aspect-square"></div>
+            <div class="skeleton rounded-[1.75rem] aspect-square"></div>
             <div class="space-y-3"><div class="skeleton h-8 rounded w-2/3"></div><div class="skeleton h-4 rounded w-full"></div><div class="skeleton h-4 rounded w-5/6"></div><div class="skeleton h-12 rounded-full w-1/2"></div></div>
         </div>
         <div v-else-if="!menu" class="text-center py-20">
@@ -13,7 +13,7 @@
             <RouterLink to="/menu" class="text-gold-600 font-semibold dark:text-gold-400">Browse the menu →</RouterLink>
         </div>
         <div v-else class="grid md:grid-cols-2 gap-8 lg:gap-14 animate-fade-up">
-            <div class="rounded-[1.75rem] overflow-hidden bg-cream-100 aspect-square shadow-xl relative dark:bg-[#2c2318]">
+            <div class="rounded-[1.75rem] overflow-hidden bg-cream-100 aspect-square shadow-xl relative dark:bg-[#261d15]">
                 <img v-if="menu.image" :src="menu.image" :alt="menu.name" class="w-full h-full object-cover" />
                 <div v-else class="w-full h-full flex flex-col items-center justify-center gap-3 text-espresso-500/40 dark:text-cream-200/70">
                     <UtensilsCrossed class="w-16 h-16" />
@@ -25,12 +25,12 @@
             </div>
 
             <div>
-                <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600 dark:text-gold-400">{{ menu.category?.name }}</p>
+                <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400">{{ menu.category?.name }}</p>
                 <h1 class="font-serif text-4xl sm:text-5xl font-black mt-1.5">{{ menu.name }}</h1>
                 <p class="font-serif text-3xl font-bold text-espresso-800 mt-3 dark:text-cream-100">{{ menu.price_formatted }}</p>
                 <p class="text-espresso-700/75 leading-relaxed mt-4 dark:text-cream-200">{{ menu.description }}</p>
 
-                <div v-if="menu.ingredients" class="mt-5 bg-white rounded-2xl border border-cream-200 p-4 dark:bg-[#211a12] dark:border-white/10">
+                <div v-if="menu.ingredients" class="mt-5 bg-white rounded-[1.25rem] border border-cream-200 p-4 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                     <p class="text-xs font-bold uppercase tracking-wider text-espresso-700/60 mb-1.5 dark:text-cream-200">Ingredients</p>
                     <p class="text-sm">{{ menu.ingredients }}</p>
                 </div>
@@ -41,10 +41,10 @@
                         <label
                             v-for="a in menu.addons"
                             :key="a.id"
-                            class="flex items-center gap-3 bg-white rounded-xl border px-4 py-3 cursor-pointer transition dark:bg-[#211a12]"
+                            class="flex items-center gap-3 bg-white rounded-[0.875rem] border px-4 py-3 cursor-pointer transition dark:bg-[#1b1510]"
                             :class="selectedAddons.includes(a.id) ? 'border-gold-500 ring-1 ring-gold-500/40' : 'border-cream-200 hover:border-espresso-900/30 dark:border-white/10'"
                         >
-                            <input type="checkbox" :value="a.id" v-model="selectedAddons" class="w-5 h-5 accent-[#a67c28]" />
+                            <input type="checkbox" :value="a.id" v-model="selectedAddons" class="w-5 h-5 accent-[#856a38]" />
                             <span class="flex-1 text-sm font-medium">{{ a.name }}</span>
                             <span class="text-sm font-bold">+ {{ a.price_formatted }}</span>
                         </label>
@@ -52,10 +52,10 @@
                 </div>
 
                 <div class="flex items-center gap-4 mt-6">
-                    <div class="flex items-center gap-3 bg-white border border-cream-200 rounded-full px-2 py-1.5 dark:bg-[#211a12] dark:border-white/10">
-                        <button @click="qty = Math.max(1, qty - 1)" class="w-8 h-8 rounded-full bg-cream-100 flex items-center justify-center hover:bg-cream-200 transition dark:bg-[#2c2318] dark:hover:bg-white/10" aria-label="Decrease"><Minus class="w-4 h-4" /></button>
+                    <div class="flex items-center gap-3 bg-white border border-cream-200 rounded-full px-2 py-1.5 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
+                        <button @click="qty = Math.max(1, qty - 1)" class="w-8 h-8 rounded-full bg-cream-100 flex items-center justify-center hover:bg-cream-200 transition dark:bg-[#261d15] dark:hover:bg-white/10" aria-label="Decrease"><Minus class="w-4 h-4" /></button>
                         <span class="font-bold w-6 text-center">{{ qty }}</span>
-                        <button @click="qty = Math.min(50, qty + 1)" class="w-8 h-8 rounded-full bg-cream-100 flex items-center justify-center hover:bg-cream-200 transition dark:bg-[#2c2318] dark:hover:bg-white/10" aria-label="Increase"><Plus class="w-4 h-4" /></button>
+                        <button @click="qty = Math.min(50, qty + 1)" class="w-8 h-8 rounded-full bg-cream-100 flex items-center justify-center hover:bg-cream-200 transition dark:bg-[#261d15] dark:hover:bg-white/10" aria-label="Increase"><Plus class="w-4 h-4" /></button>
                     </div>
                     <button
                         @click="addToCart"
@@ -69,7 +69,7 @@
                     v-model="note"
                     rows="2"
                     placeholder="Note for the kitchen (optional)…"
-                    class="w-full mt-4 text-sm px-4 py-3 rounded-xl border border-cream-200 bg-white focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:bg-[#211a12] dark:focus:ring-gold-400/40"
+                    class="w-full mt-4 text-sm px-4 py-3 rounded-[0.875rem] border border-cream-200 bg-white focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:bg-[#1b1510] dark:focus:ring-gold-400/40 shadow-soft"
                 ></textarea>
             </div>
         </div>

@@ -2,14 +2,12 @@
     <div>
         <!-- HERO -->
         <section class="relative overflow-hidden">
-            <div class="pointer-events-none absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-gold-500/10 blur-3xl dark:bg-gold-500/10"></div>
-            <div class="pointer-events-none absolute top-64 -left-40 w-[380px] h-[380px] rounded-full bg-espresso-900/5 blur-3xl dark:bg-gold-400/5"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-16 sm:pt-20 sm:pb-24 grid lg:grid-cols-2 gap-10 items-center relative">
                 <div class="animate-fade-up">
-                    <p class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-gold-600 bg-gold-500/10 border border-gold-500/25 px-4 py-1.5 rounded-full dark:text-gold-400">
+                    <p class="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-gold-600 bg-gold-500/10 border border-gold-500/25 px-4 py-1.5 rounded-full dark:text-gold-400">
                         <Sparkles class="w-3.5 h-3.5" /> Fine Dining · Est. 2012
                     </p>
-                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-black leading-[1.02] mt-5">
+                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl leading-[0.98] mt-5">
                         Crafted with Passion, <span class="italic text-espresso-600 dark:text-gold-400">Served</span> with Soul.
                     </h1>
                     <p class="text-espresso-700/75 dark:text-cream-200 text-base sm:text-lg mt-5 max-w-md leading-relaxed">
@@ -32,11 +30,11 @@
                     </div>
                 </div>
                 <div class="relative animate-fade-in">
-                    <div class="rounded-[2rem] overflow-hidden shadow-2xl aspect-[4/5] max-h-[560px] w-full bg-espresso-800 relative">
-                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=900&q=80" alt="Signature wagyu steak" class="w-full h-full object-cover" />
+                    <div class="rounded-[1.75rem] overflow-hidden shadow-lift aspect-[4/5] max-h-[560px] w-full bg-espresso-800 relative">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=900&q=80" alt="Signature wagyu steak" class="w-full h-full object-cover scale-105 animate-[fade_1.6s_var(--ease)_both]" />
                         <div class="absolute inset-0 bg-gradient-to-t from-espresso-900/60 via-transparent to-transparent"></div>
-                        <div class="absolute bottom-5 left-5 right-5 bg-cream-50/95 dark:bg-[#211a12]/95 backdrop-blur rounded-2xl p-4 flex items-center gap-4 border border-white/40 dark:border-white/10 shadow-lg">
-                            <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=200&q=60" alt="Chef special" class="w-14 h-14 rounded-xl object-cover" />
+                        <div class="absolute bottom-5 left-5 right-5 bg-cream-50/95 dark:bg-[#1b1510]/95 backdrop-blur rounded-[1.25rem] p-4 flex items-center gap-4 border border-white/40 dark:border-white/10 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=200&q=60" alt="Chef special" class="w-14 h-14 rounded-[0.875rem] object-cover" />
                             <div class="flex-1">
                                 <p class="text-xs font-bold uppercase tracking-wider text-gold-600 dark:text-gold-400">Chef's Special</p>
                                 <p class="font-serif font-bold">Wagyu Steak · Rp 185.000</p>
@@ -46,7 +44,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="absolute -top-4 -right-2 sm:-right-4 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2.5 rotate-3 dark:bg-[#211a12]">
+                    <div class="absolute -top-4 -right-2 sm:-right-4 bg-white rounded-[1.25rem] shadow-xl px-4 py-3 flex items-center gap-2.5 dark:bg-[#1b1510]">
                         <span class="w-9 h-9 rounded-full bg-green-100 dark:bg-green-500/15 flex items-center justify-center"><Star class="w-4 h-4 text-green-700 dark:text-green-400" /></span>
                         <div class="text-xs"><p class="font-bold text-sm">4.9 / 5.0</p><p class="text-espresso-700/60 dark:text-cream-200">2.400+ reviews</p></div>
                     </div>
@@ -56,14 +54,14 @@
 
         <!-- PROMO BANNER -->
         <section v-if="promos.length" class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="bg-espresso-900 text-cream-50 rounded-3xl px-6 sm:px-10 py-8 flex flex-col sm:flex-row items-start sm:items-center gap-5 relative overflow-hidden">
+            <div class="bg-espresso-900 text-cream-50 rounded-[1.75rem] px-6 sm:px-10 py-8 flex flex-col sm:flex-row items-start sm:items-center gap-5 relative overflow-hidden">
                 <BadgePercent class="absolute -right-6 -bottom-8 w-44 h-44 text-white/5" />
                 <div class="flex-1">
-                    <p class="text-gold-400 text-xs font-bold uppercase tracking-[0.2em]">Limited Offer</p>
+                    <p class="text-gold-400 text-[11px] font-medium uppercase tracking-[0.22em]">Limited Offer</p>
                     <h2 class="font-serif text-2xl sm:text-3xl font-bold mt-1">{{ promos[0].title }}</h2>
                     <p class="text-cream-200/70 text-sm mt-1">{{ promos[0].description }}</p>
                 </div>
-                <div class="flex items-center gap-2 bg-white/10 border border-dashed border-gold-400/60 rounded-xl px-4 py-2.5 font-mono font-bold tracking-widest">
+                <div class="flex items-center gap-2 bg-white/10 border border-dashed border-gold-400/60 rounded-[0.875rem] px-4 py-2.5 font-mono font-bold tracking-widest">
                     {{ promos[0].code }}
                     <button @click="copyPromo(promos[0].code)" class="ml-1 p-1.5 rounded-lg hover:bg-white/10 transition" aria-label="Copy code">
                         <Copy class="w-4 h-4" />
@@ -73,10 +71,10 @@
         </section>
 
         <!-- FEATURED MENU -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24">
+        <section v-reveal class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24">
             <div class="flex items-end justify-between mb-7">
                 <div>
-                    <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600 dark:text-gold-400">Curated For You</p>
+                    <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400">Curated For You</p>
                     <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-1.5">Featured Dishes</h2>
                 </div>
                 <RouterLink to="/menu" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold hover:text-gold-600 transition dark:text-gold-400">View all <ArrowRight class="w-4 h-4" /></RouterLink>
@@ -88,16 +86,16 @@
         </section>
 
         <!-- STORY -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24 grid lg:grid-cols-2 gap-10 items-center">
-            <div class="rounded-[2rem] overflow-hidden shadow-xl aspect-[4/3] bg-cream-100 dark:bg-[#2c2318]">
+        <section v-reveal class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24 grid lg:grid-cols-2 gap-10 items-center">
+            <div class="rounded-[2rem] overflow-hidden shadow-xl aspect-[4/3] bg-cream-100 dark:bg-[#261d15]">
                 <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80" alt="Saveur dining room" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
             <div>
-                <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600 dark:text-gold-400">Our Story</p>
+                <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400">Our Story</p>
                 <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-1.5 leading-tight">A table where Jakarta slows down.</h2>
                 <p class="text-espresso-700/75 mt-4 leading-relaxed dark:text-cream-200">Since 2012, Saveur has blended European technique with Indonesian soul. Our chefs source daily from local farms, age our steaks in-house, and roast single-origin coffee every morning.</p>
                 <div class="grid grid-cols-2 gap-4 mt-7">
-                    <div v-for="f in whyUs" :key="f.title" class="bg-white rounded-2xl border border-cream-200 p-4 dark:bg-[#211a12] dark:border-white/10">
+                    <div v-for="f in whyUs" :key="f.title" class="bg-white rounded-[1.25rem] border border-cream-200 p-4 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                         <component :is="f.icon" class="w-6 h-6 text-gold-600 dark:text-gold-400" />
                         <p class="font-bold mt-2.5 text-[15px]">{{ f.title }}</p>
                         <p class="text-sm text-espresso-700/65 dark:text-cream-200 mt-1">{{ f.desc }}</p>
@@ -107,10 +105,10 @@
         </section>
 
         <!-- POPULAR -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24">
+        <section v-reveal class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24">
             <div class="flex items-end justify-between mb-7">
                 <div>
-                    <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600 dark:text-gold-400">Guest Favorites</p>
+                    <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400">Guest Favorites</p>
                     <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-1.5">Popular Right Now</h2>
                 </div>
             </div>
@@ -121,10 +119,10 @@
         </section>
 
         <!-- BRANCHES -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24">
+        <section v-reveal class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24">
             <div class="flex items-end justify-between mb-7">
                 <div>
-                    <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600 dark:text-gold-400">Visit Us</p>
+                    <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400">Visit Us</p>
                     <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-1.5">Three Doors, One Soul</h2>
                 </div>
                 <RouterLink to="/branches" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold hover:text-gold-600 transition dark:text-gold-400">View map <ArrowRight class="w-4 h-4" /></RouterLink>
@@ -134,7 +132,7 @@
                     v-for="b in branches"
                     :key="b.id"
                     :to="`/branches/${b.slug}`"
-                    class="group bg-white rounded-2xl border border-cream-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 dark:bg-[#211a12] dark:border-white/10"
+                    class="group bg-white rounded-[1.25rem] border border-cream-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 dark:bg-[#1b1510] dark:border-white/10"
                 >
                     <div class="h-44 bg-espresso-800 relative overflow-hidden">
                         <img :src="branchImage(b.slug)" :alt="b.name" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -150,11 +148,11 @@
         </section>
 
         <!-- TESTIMONIALS -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600 text-center dark:text-gold-400">Word of Mouth</p>
+        <section v-reveal class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24">
+            <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-gold-600 text-center dark:text-gold-400">Word of Mouth</p>
             <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-1.5 text-center">Loved by Our Guests</h2>
             <div class="grid sm:grid-cols-3 gap-5 mt-8">
-                <figure v-for="r in reviews" :key="r.id" class="bg-white rounded-2xl border border-cream-200 p-6 flex flex-col dark:bg-[#211a12] dark:border-white/10">
+                <figure v-for="r in reviews" :key="r.id" class="bg-white rounded-[1.25rem] border border-cream-200 p-6 flex flex-col dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                     <div class="flex gap-0.5 text-gold-500">
                         <Star v-for="i in 5" :key="i" class="w-4 h-4" :class="i <= r.rating ? 'fill-current' : 'opacity-30'" />
                     </div>
@@ -168,7 +166,7 @@
         </section>
 
         <!-- HOURS / CTA -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24">
+        <section v-reveal class="max-w-7xl mx-auto px-4 sm:px-6 mt-16 sm:mt-24">
             <div class="rounded-[2rem] overflow-hidden relative bg-espresso-900 text-cream-50">
                 <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&q=70" alt="Restaurant interior" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-25" />
                 <div class="relative px-6 sm:px-14 py-14 sm:py-20 text-center max-w-2xl mx-auto">

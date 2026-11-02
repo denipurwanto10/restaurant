@@ -79,6 +79,9 @@ class RestaurantSeeder extends Seeder
             ['c' => 'coffee', 'name' => 'Caramel Macchiato', 'price' => 42000, 'desc' => 'Layered espresso, milk and house caramel drizzle.', 'ing' => 'Espresso, milk, caramel', 'veg' => true, 'featured' => true],
         ];
 
+        // Photos are openly licensed images sourced from Wikimedia Commons.
+        // Refresh them with: node scripts/fetch-menu-images.mjs
+        // Credits: docs/menu-image-credits.md
         foreach ($menus as $m) {
             $menu = Menu::updateOrCreate(
                 ['slug' => \Illuminate\Support\Str::slug($m['name'])],
@@ -88,6 +91,7 @@ class RestaurantSeeder extends Seeder
                     'description' => $m['desc'],
                     'ingredients' => $m['ing'],
                     'price' => $m['price'],
+                    'image' => 'menu/'.\Illuminate\Support\Str::slug($m['name']).'.jpg',
                     'is_available' => true,
                     'is_featured' => $m['featured'] ?? false,
                     'is_popular' => $m['popular'] ?? false,

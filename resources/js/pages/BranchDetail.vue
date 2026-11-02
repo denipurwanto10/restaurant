@@ -1,11 +1,11 @@
 <template>
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <div v-reveal.stagger class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <RouterLink to="/branches" class="inline-flex items-center gap-1.5 text-sm font-medium text-espresso-700/70 dark:text-cream-200 hover:text-espresso-900 dark:hover:text-gold-400 transition mb-6">
             <ArrowLeft class="w-4 h-4" /> All branches
         </RouterLink>
 
         <div v-if="loading" class="space-y-3">
-            <div class="skeleton h-72 rounded-3xl"></div>
+            <div class="skeleton h-72 rounded-[1.75rem]"></div>
             <div class="skeleton h-8 rounded w-1/2"></div>
         </div>
 
@@ -14,14 +14,14 @@
                 <img :src="heroImage" :alt="branch.name" class="w-full h-full object-cover" />
                 <div class="absolute inset-0 bg-gradient-to-t from-espresso-900/85 via-espresso-900/20 to-transparent"></div>
                 <div class="absolute bottom-0 p-6 sm:p-10 text-cream-50">
-                    <p class="text-gold-400 text-xs font-bold uppercase tracking-[0.2em]">{{ branch.city }}</p>
+                    <p class="text-gold-400 text-[11px] font-medium uppercase tracking-[0.22em]">{{ branch.city }}</p>
                     <h1 class="font-serif text-4xl sm:text-6xl font-black mt-1">{{ branch.name }}</h1>
                 </div>
             </div>
 
             <div class="grid lg:grid-cols-[1fr_360px] gap-6 mt-8 items-start">
                 <div class="space-y-5">
-                    <div class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 dark:bg-[#211a12] dark:border-white/10">
+                    <div class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                         <h2 class="font-serif text-xl font-bold">About this branch</h2>
                         <p class="text-espresso-700/75 mt-2 leading-relaxed dark:text-cream-200">{{ branch.description }}</p>
                         <div class="grid sm:grid-cols-2 gap-3.5 mt-5 text-sm">
@@ -31,29 +31,29 @@
                         </div>
                     </div>
 
-                    <div v-if="branch.facilities" class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 dark:bg-[#211a12] dark:border-white/10">
+                    <div v-if="branch.facilities" class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                         <h2 class="font-serif text-xl font-bold">Facilities</h2>
                         <div class="flex flex-wrap gap-2 mt-3">
-                            <span v-for="f in branch.facilities.split(',')" :key="f" class="text-sm bg-cream-100 px-3.5 py-1.5 rounded-full font-medium dark:bg-[#2c2318]">{{ f.trim() }}</span>
+                            <span v-for="f in branch.facilities.split(',')" :key="f" class="text-sm bg-cream-100 px-3.5 py-1.5 rounded-full font-medium dark:bg-[#261d15]">{{ f.trim() }}</span>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 dark:bg-[#211a12] dark:border-white/10">
+                    <div class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                         <h2 class="font-serif text-xl font-bold">Location</h2>
-                        <div id="detail-map" class="h-72 w-full mt-3 rounded-2xl overflow-hidden"></div>
+                        <div id="detail-map" class="h-72 w-full mt-3 rounded-[1.25rem] overflow-hidden"></div>
                         <a :href="`https://www.openstreetmap.org/directions?to=${branch.latitude}%2C${branch.longitude}`" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 mt-3 text-sm font-bold text-gold-600 hover:underline dark:text-gold-400">
                             <Navigation class="w-4 h-4" /> Get Directions
                         </a>
                     </div>
 
-                    <div v-if="branch.menus?.length" class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 dark:bg-[#211a12] dark:border-white/10">
+                    <div v-if="branch.menus?.length" class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                         <div class="flex items-center justify-between">
                             <h2 class="font-serif text-xl font-bold">Available here ({{ branch.menus.length }})</h2>
                             <RouterLink to="/menu" class="text-sm font-semibold hover:text-gold-600 transition dark:text-gold-400">Full menu →</RouterLink>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-3 mt-4">
                             <div v-for="m in branch.menus.slice(0, 6)" :key="m.id" class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-cream-100 overflow-hidden shrink-0 flex items-center justify-center dark:bg-[#2c2318]">
+                                <div class="w-12 h-12 rounded-[0.875rem] bg-cream-100 overflow-hidden shrink-0 flex items-center justify-center dark:bg-[#261d15]">
                                     <img v-if="m.image" :src="m.image" :alt="m.name" loading="lazy" class="w-full h-full object-cover" />
                                     <UtensilsCrossed v-else class="w-5 h-5 text-espresso-500/40 dark:text-cream-200/70" />
                                 </div>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <aside class="bg-espresso-900 text-cream-50 rounded-3xl p-6 sm:p-7 lg:sticky lg:top-24 text-center">
+                <aside class="bg-espresso-900 text-cream-50 rounded-[1.75rem] p-6 sm:p-7 lg:sticky lg:top-24 text-center">
                     <ConciergeBell class="w-10 h-10 mx-auto text-gold-400" />
                     <h3 class="font-serif text-2xl font-bold mt-3">Craving Saveur?</h3>
                     <p class="text-sm text-cream-200/70 mt-1.5">Order from {{ branch.name }} now — dine in, take away, or delivery.</p>

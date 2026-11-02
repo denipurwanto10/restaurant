@@ -24,6 +24,9 @@ export const useTheme = defineStore('theme', () => {
     }
 
     function toggle() {
+        const root = document.documentElement;
+        root.classList.add('theme-fade');
+        setTimeout(() => root.classList.remove('theme-fade'), 700);
         mode.value = mode.value === 'dark' ? 'light' : 'dark';
         apply();
     }

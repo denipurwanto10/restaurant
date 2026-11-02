@@ -1,9 +1,9 @@
 <template>
-    <div class="space-y-6">
+    <div v-reveal.stagger class="space-y-6">
         <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
-            <div v-for="s in statCards" :key="s.label" class="bg-white rounded-2xl border border-cream-200 p-5 dark:bg-[#211a12] dark:border-white/10">
+            <div v-for="s in statCards" :key="s.label" class="bg-white rounded-[1.25rem] border border-cream-200 p-5 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                 <div class="flex items-center justify-between">
-                    <span class="w-10 h-10 rounded-xl flex items-center justify-center" :class="s.bg"><component :is="s.icon" class="w-5 h-5" /></span>
+                    <span class="w-10 h-10 rounded-[0.875rem] flex items-center justify-center" :class="s.bg"><component :is="s.icon" class="w-5 h-5" /></span>
                 </div>
                 <p class="font-serif text-2xl sm:text-3xl font-bold mt-3">{{ s.value }}</p>
                 <p class="text-[13px] text-espresso-700/60 dark:text-cream-200">{{ s.label }}</p>
@@ -11,22 +11,35 @@
         </div>
 
         <div class="grid lg:grid-cols-2 gap-4">
-            <div class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 dark:bg-[#211a12] dark:border-white/10">
+            <div class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 dark:bg-[#1b1510] dark:border-white/10 shadow-soft flex flex-col">
                 <h3 class="font-serif text-lg font-bold">Revenue — last 14 days</h3>
-                <div class="flex items-end gap-1.5 h-44 mt-5">
-                    <div v-for="d in data.revenue_chart" :key="d.date" class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end" :title="`${d.date}: Rp ${Number(d.revenue).toLocaleString('id-ID')}`">
-                        <span class="text-[10px] font-bold text-espresso-700/50 hidden sm:block dark:text-cream-200">{{ shortNum(d.revenue) }}</span>
-                        <div class="w-full rounded-t-lg bg-espresso-900 hover:bg-gold-500 transition min-h-1 dark:bg-gold-500 dark:hover:bg-gold-400" :style="{ height: barHeight(d.revenue) }"></div>
-                        <span class="text-[10px] text-espresso-700/50 dark:text-cream-200">{{ dayLabel(d.date) }}</span>
+                <div class="mt-auto pt-6">
+                    <div class="relative h-60">
+                        <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+                            <div class="border-t border-dashed border-cream-200 dark:border-white/10"></div>
+                            <div class="border-t border-dashed border-cream-200 dark:border-white/10"></div>
+                            <div class="border-t border-dashed border-cream-200 dark:border-white/10"></div>
+                            <div class="border-t border-dashed border-cream-200 dark:border-white/10"></div>
+                        </div>
+                        <div class="relative flex items-end gap-1.5 h-full">
+                            <div v-for="d in data.revenue_chart" :key="d.date" class="flex-1 h-full flex items-end justify-center" :title="`${d.date}: Rp ${Number(d.revenue).toLocaleString('id-ID')}`">
+                                <div class="relative w-full max-w-8 rounded-t-md transition min-h-1" :class="Number(d.revenue) === 0 ? 'bg-cream-200 dark:bg-white/10' : 'bg-espresso-900 hover:bg-gold-500 dark:bg-gold-500 dark:hover:bg-gold-400'" :style="{ height: barHeight(d.revenue) }">
+                                    <span v-if="Number(d.revenue) > 0" class="absolute -top-4 inset-x-0 text-center text-[10px] font-semibold text-espresso-700/55 dark:text-cream-200/70">{{ shortNum(d.revenue) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-1.5 mt-2">
+                        <span v-for="d in data.revenue_chart" :key="d.date" class="flex-1 text-center text-[10px] text-espresso-700/50 dark:text-cream-200/60">{{ dayLabel(d.date) }}</span>
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 dark:bg-[#211a12] dark:border-white/10">
+            <div class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
                 <h3 class="font-serif text-lg font-bold">Orders by status (30 days)</h3>
                 <div class="mt-5 space-y-3">
                     <div v-for="(count, status) in data.orders_by_status" :key="status" class="flex items-center gap-3 text-sm">
                         <span class="w-24 font-medium capitalize">{{ status }}</span>
-                        <div class="flex-1 h-3 rounded-full bg-cream-100 overflow-hidden dark:bg-[#2c2318]">
+                        <div class="flex-1 h-3 rounded-full bg-cream-100 overflow-hidden dark:bg-[#261d15]">
                             <div class="h-full rounded-full bg-gold-500" :style="{ width: pct(count) }"></div>
                         </div>
                         <span class="font-bold w-8 text-right">{{ count }}</span>
@@ -43,7 +56,7 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-cream-200 p-5 sm:p-6 dark:bg-[#211a12] dark:border-white/10">
+        <div class="bg-white rounded-[1.25rem] border border-cream-200 p-5 sm:p-6 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
             <div class="flex items-center justify-between">
                 <h3 class="font-serif text-lg font-bold">Recent orders</h3>
                 <RouterLink to="/admin/orders" class="text-sm font-semibold hover:text-gold-600 dark:text-gold-400">View all →</RouterLink>
@@ -78,7 +91,7 @@ import { formatRupiah } from '../stores/cart';
 const data = ref({ stats: {}, revenue_chart: [], orders_by_status: {}, popular_menus: [], recent_orders: [] });
 
 const statCards = computed(() => [
-    { label: 'Total Orders', value: data.value.stats.total_orders ?? '–', icon: ReceiptText, bg: 'bg-cream-100 text-espresso-800 dark:bg-[#2c2318] dark:text-gold-400' },
+    { label: 'Total Orders', value: data.value.stats.total_orders ?? '–', icon: ReceiptText, bg: 'bg-cream-100 text-espresso-800 dark:bg-[#261d15] dark:text-gold-400' },
     { label: "Today's Orders", value: data.value.stats.today_orders ?? '–', icon: ShoppingBag, bg: 'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-400' },
     { label: 'Total Revenue', value: formatRupiah(data.value.stats.total_revenue ?? 0), icon: Wallet, bg: 'bg-green-100 text-green-700 dark:bg-green-500/15 dark:text-green-400' },
     { label: 'Total Customers', value: data.value.stats.total_customers ?? '–', icon: Users, bg: 'bg-gold-500/15 text-gold-600 dark:text-gold-400' },
@@ -95,7 +108,7 @@ function dayLabel(date) {
 }
 function barHeight(v) {
     const max = Math.max(...data.value.revenue_chart.map((d) => Number(d.revenue)), 1);
-    return `${Math.max(4, (Number(v) / max) * 100)}%`;
+    return `${Math.max(3, (Number(v) / max) * 78)}%`;
 }
 function pct(count) {
     const total = Object.values(data.value.orders_by_status || {}).reduce((a, b) => a + Number(b), 0) || 1;

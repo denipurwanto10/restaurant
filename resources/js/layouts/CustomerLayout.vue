@@ -1,7 +1,11 @@
 <template>
     <Navbar @open-cart="cartOpen = true" />
     <main class="min-h-[70vh]">
-        <RouterView />
+        <RouterView v-slot="{ Component, route: r }">
+            <Transition name="page" mode="out-in">
+                <component :is="Component" :key="r.path" />
+            </Transition>
+        </RouterView>
     </main>
     <Footer />
     <CartDrawer :open="cartOpen" @close="cartOpen = false" />

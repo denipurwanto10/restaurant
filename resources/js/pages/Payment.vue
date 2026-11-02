@@ -1,8 +1,8 @@
 <template>
-    <div class="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <div v-reveal.stagger class="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div v-if="loading" class="space-y-3">
             <div class="skeleton h-10 rounded w-2/3"></div>
-            <div class="skeleton h-72 rounded-3xl"></div>
+            <div class="skeleton h-72 rounded-[1.75rem]"></div>
         </div>
 
         <template v-else-if="payment">
@@ -22,7 +22,7 @@
             </div>
 
             <!-- Payment card -->
-            <div class="bg-white rounded-3xl border border-cream-200 p-6 sm:p-8 mt-8 shadow-sm dark:bg-[#211a12] dark:border-white/10">
+            <div class="bg-white rounded-[1.75rem] border border-cream-200 p-6 sm:p-8 mt-8 shadow-sm dark:bg-[#1b1510] dark:border-white/10">
                 <div class="flex justify-between items-start gap-4">
                     <div>
                         <p class="text-xs font-bold uppercase tracking-wider text-espresso-700/55 dark:text-cream-200">Invoice</p>
@@ -46,7 +46,7 @@
 
                 <!-- QRIS dummy QR -->
                 <div v-if="isQris && payment.status === 'pending'" class="mt-6 flex flex-col items-center">
-                    <div class="bg-white border-2 border-espresso-900 rounded-2xl p-4 dark:bg-[#211a12] dark:border-gold-500">
+                    <div class="bg-white border-2 border-espresso-900 rounded-[1.25rem] p-4 dark:bg-[#1b1510] dark:border-gold-500">
                         <img :src="qrImage" alt="Dummy QRIS QR code" class="w-52 h-52" />
                     </div>
                     <p class="text-xs text-espresso-700/60 mt-2.5 dark:text-cream-200">Scan with any e-wallet or mobile banking (simulation)</p>

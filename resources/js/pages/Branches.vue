@@ -1,10 +1,10 @@
 <template>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600 dark:text-gold-400">Find Us</p>
+    <div v-reveal.stagger class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400">Find Us</p>
         <h1 class="font-serif text-4xl sm:text-5xl font-bold mt-1">Our Branches</h1>
 
         <div class="grid lg:grid-cols-[1fr_360px] gap-6 mt-8 items-start">
-            <div class="rounded-3xl overflow-hidden border border-cream-200 shadow-sm bg-white dark:border-white/10 dark:bg-[#211a12]">
+            <div class="rounded-[1.75rem] overflow-hidden border border-cream-200 shadow-sm bg-white dark:border-white/10 dark:bg-[#1b1510]">
                 <div id="branch-map" class="h-[300px] sm:h-[520px] w-full"></div>
             </div>
 
@@ -13,7 +13,7 @@
                     v-for="b in branches"
                     :key="b.id"
                     @click="selectBranch(b)"
-                    class="w-full text-left bg-white rounded-2xl border-2 p-5 transition hover:shadow-lg dark:bg-[#211a12]"
+                    class="w-full text-left bg-white rounded-[1.25rem] border-2 p-5 transition hover:shadow-lg dark:bg-[#1b1510]"
                     :class="selected?.id === b.id ? 'border-espresso-900 dark:border-gold-500' : 'border-cream-200 dark:border-white/10'"
                 >
                     <div class="flex items-start justify-between gap-2">
@@ -75,7 +75,7 @@ function initMap() {
                 <b style="font-size:15px">${b.name}</b><br>
                 <span style="font-size:12px;color:#57462f">${b.address}</span><br>
                 <span style="font-size:12px">${b.phone} · ${b.opening_hours}</span><br>
-                <button data-branch-slug="${b.slug}" class="popup-detail-btn" style="margin-top:8px;font-size:12px;font-weight:bold;color:#a67c28;cursor:pointer;background:none;border:none;padding:0">View Details →</button>
+                <button data-branch-slug="${b.slug}" class="popup-detail-btn" style="margin-top:8px;font-size:12px;font-weight:bold;color:#856a38;cursor:pointer;background:none;border:none;padding:0">View Details →</button>
             </div>
         `);
         marker.on('popupopen', (e) => {

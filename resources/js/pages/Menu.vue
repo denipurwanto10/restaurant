@@ -1,10 +1,10 @@
 <template>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold-600 dark:text-gold-400">Our Menu</p>
+    <div v-reveal.stagger class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400">Our Menu</p>
         <h1 class="font-serif text-4xl sm:text-5xl font-bold mt-1">Taste the Craft</h1>
 
         <!-- Toolbar -->
-        <div class="mt-7 bg-white rounded-2xl border border-cream-200 p-4 space-y-3.5 dark:bg-[#211a12] dark:border-white/10">
+        <div class="mt-7 bg-white rounded-[1.25rem] border border-cream-200 p-4 space-y-3.5 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
             <div class="flex flex-col md:flex-row gap-3">
                 <div class="relative flex-1">
                     <Search class="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-espresso-500/50 dark:text-cream-200/70" />
@@ -12,28 +12,23 @@
                         v-model="filters.search"
                         type="text"
                         placeholder="Search dishes… (e.g. steak, pasta, coffee)"
-                        class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-cream-200 bg-cream-50 focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-sm dark:border-white/10 dark:bg-[#14100b] dark:focus:ring-gold-400/40"
+                        class="w-full pl-11 pr-4 py-2.5 rounded-[0.875rem] border border-cream-200 bg-cream-50 focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-sm dark:border-white/10 dark:bg-[#110d09] dark:focus:ring-gold-400/40"
                     />
                 </div>
-                <select v-model="filters.sort" class="px-4 py-2.5 rounded-xl border border-cream-200 bg-cream-50 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-gold-500/50 dark:border-white/10 dark:bg-[#14100b] dark:focus:ring-gold-400/40">
-                    <option value="popular">Most popular</option>
-                    <option value="price_asc">Price: low to high</option>
-                    <option value="price_desc">Price: high to low</option>
-                    <option value="newest">Newest</option>
-                </select>
+                <BaseSelect v-model="filters.sort" :options="[{ value: 'popular', label: 'Most popular' }, { value: 'price_asc', label: 'Price: low to high' }, { value: 'price_desc', label: 'Price: high to low' }, { value: 'newest', label: 'Newest' }]" class="sm:w-56 shrink-0" label="Sort by" />
             </div>
             <div class="flex flex-wrap gap-2">
                 <button
                     @click="filters.category = ''"
                     class="px-4 py-1.5 rounded-full text-sm font-semibold transition"
-                    :class="!filters.category ? 'bg-espresso-900 text-cream-50 dark:bg-gold-500 dark:text-espresso-900' : 'bg-cream-100 hover:bg-cream-200 dark:bg-[#2c2318] dark:hover:bg-white/10'"
+                    :class="!filters.category ? 'bg-espresso-900 text-cream-50 dark:bg-gold-500 dark:text-espresso-900' : 'bg-cream-100 hover:bg-cream-200 dark:bg-[#261d15] dark:hover:bg-white/10'"
                 >All</button>
                 <button
                     v-for="c in categories"
                     :key="c.id"
                     @click="filters.category = c.slug"
                     class="px-4 py-1.5 rounded-full text-sm font-semibold transition"
-                    :class="filters.category === c.slug ? 'bg-espresso-900 text-cream-50 dark:bg-gold-500 dark:text-espresso-900' : 'bg-cream-100 hover:bg-cream-200 dark:bg-[#2c2318] dark:hover:bg-white/10'"
+                    :class="filters.category === c.slug ? 'bg-espresso-900 text-cream-50 dark:bg-gold-500 dark:text-espresso-900' : 'bg-cream-100 hover:bg-cream-200 dark:bg-[#261d15] dark:hover:bg-white/10'"
                 >{{ c.name }}</button>
             </div>
             <div class="flex flex-wrap gap-2 text-[13px]">
@@ -52,7 +47,7 @@
         <!-- Results -->
         <p class="text-sm text-espresso-700/60 mt-6 mb-4 dark:text-cream-200">{{ meta.total ?? 0 }} dishes found</p>
         <MenuSkeleton v-if="loading" :count="8" />
-        <div v-else-if="!menus.length" class="text-center py-20 bg-white rounded-3xl border border-cream-200 dark:bg-[#211a12] dark:border-white/10">
+        <div v-else-if="!menus.length" class="text-center py-20 bg-white rounded-[1.75rem] border border-cream-200 dark:bg-[#1b1510] dark:border-white/10 shadow-soft">
             <UtensilsCrossed class="w-12 h-12 mx-auto text-espresso-500/30 dark:text-cream-200/70" />
             <p class="font-serif text-2xl font-bold mt-4">No menu found.</p>
             <p class="text-sm text-espresso-700/60 mt-1 dark:text-cream-200">Try a different search or filter.</p>
@@ -68,13 +63,14 @@
                 :key="p"
                 @click="goPage(p)"
                 class="w-10 h-10 rounded-full text-sm font-bold transition"
-                :class="meta.current_page === p ? 'bg-espresso-900 text-cream-50 dark:bg-gold-500 dark:text-espresso-900' : 'bg-white border border-cream-200 hover:border-espresso-900 dark:bg-[#211a12] dark:border-white/10 dark:hover:border-gold-400'"
+                :class="meta.current_page === p ? 'bg-espresso-900 text-cream-50 dark:bg-gold-500 dark:text-espresso-900' : 'bg-white border border-cream-200 hover:border-espresso-900 dark:bg-[#1b1510] dark:border-white/10 dark:hover:border-gold-400'"
             >{{ p }}</button>
         </div>
     </div>
 </template>
 
 <script setup>
+import BaseSelect from '../components/BaseSelect.vue';
 import { onMounted, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Flame, Leaf, Search, Star, UtensilsCrossed } from 'lucide-vue-next';

@@ -21,12 +21,25 @@ class DashboardController extends Controller
             ->where('created_at', '>=', now()->startOfMonth())
             ->sum('total');
 
+        $revenueStart = now()->subDays(13)->startOfDay();
         $revenueByDay = Order::selectRaw('DATE(created_at) as date, SUM(total) as revenue, COUNT(*) as orders')
             ->where('payment_status', 'paid')
-            ->where('created_at', '>=', now()->subDays(13)->startOfDay())
+            ->where('created_at', '>=', $revenueStart)
             ->groupBy('date')
             ->orderBy('date')
-            ->get();
+            ->get()
+            ->keyBy('date');
+
+        $revenueChart = collect(range(0, 13))->map(function (int $offset) use ($revenueStart, $revenueByDay) {
+            $date = $revenueStart->copy()->addDays($offset)->toDateString();
+            $row = $revenueByDay->get($date);
+
+            return [
+                'date' => $date,
+                'revenue' => (int) ($row->revenue ?? 0),
+                'orders' => (int) ($row->orders ?? 0),
+            ];
+        });
 
         $ordersByStatus = Order::selectRaw('status, COUNT(*) as count')
             ->where('created_at', '>=', now()->subDays(30))
@@ -46,7 +59,7 @@ class DashboardController extends Controller
                 'total_customers' => User::where('role', 'customer')->count(),
                 'total_menus' => Menu::count(),
             ],
-            'revenue_chart' => $revenueByDay,
+            'revenue_chart' => $revenueChart,
             'orders_by_status' => $ordersByStatus,
             'popular_menus' => $popularMenus,
             'recent_orders' => OrderResource::collection(

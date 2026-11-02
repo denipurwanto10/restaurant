@@ -23,7 +23,7 @@ const cls = computed(() => {
         case 'expired':
             return 'bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-400';
         default:
-            return 'bg-cream-100 text-espresso-700 dark:bg-[#2c2318] dark:text-cream-200';
+            return 'bg-cream-100 text-espresso-700 dark:bg-[#261d15] dark:text-cream-200';
     }
 });
 </script>
